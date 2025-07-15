@@ -1,0 +1,17 @@
+# Environment files
+api/.env
+client/.env
+
+# Node modules
+node_modules/
+api/node_modules/
+client/node_modules/
+
+# Build and dist
+client/dist/
+client/build/
+api/dist/
+api/build/
+
+# Logs
+*.log
