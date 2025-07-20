@@ -44,12 +44,31 @@ export const getGig = async (req, res, next) => {
 };
 
 export const getGigs = async (req, res, next) => {
-  const filter = {
-    category:"design"
+  const q = req.query;
+
+  const filter = {};
+
+  if (q.userId) {
+    filter.userId = q.userId;
   }
+
+  if (q.category) {
+    filter.category = q.category;
+  }
+
+  if (q.search) {
+    filter.title = { $regex: q.search, $options: "i" };
+  }
+
+  if (q.min || q.max) {
+    filter.price = {};
+    if (q.min) filter.price.$gte = parseInt(q.min);
+    if (q.max) filter.price.$lte = parseInt(q.max);
+  }
+
   try {
     const gigs = await Gig.find(filter);
-    res.status(201).json(gigs);
+    res.status(200).json(gigs);
   } catch (error) {
     next(error);
   }
