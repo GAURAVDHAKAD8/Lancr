@@ -1,13 +1,29 @@
 import React, { useRef, useState } from "react";
 import "./Gigs.scss";
-import { gigs } from "../../data";
+// import { gigs } from "../../data";
 import GigCard from "../../components/gigCard/GigCard";
+import { useQuery } from "@tanstack/react-query";
+import newRequest from "../../utils/newRequest";
+import { useLocation } from "react-router-dom";
 
 function Gigs() {
   const [sort, setSort] = useState("sales");
   const [open, setOpen] = useState(false);
   const minRef = useRef();
   const maxRef = useRef();
+
+const {search} = useLocation() 
+
+
+const{isLoading,error,data} = useQuery({
+  queryKey:['repoData'],
+  queryFn:()=>newRequest.get(`/gigs${search}`).then((res)=>{
+    return res.data;
+  })
+}
+)
+
+console.log(data)
 
   const reSort = (type) => {
     setSort(type);
@@ -22,7 +38,7 @@ function Gigs() {
   return (
     <div className="gigs">
       <div className="container">
-        <span className="breadcrumbs">Liverr > Graphics & Design ></span>
+        <span className="breadcrumbs">Liverr "" Graphics & Design ""</span>
         <h1>AI Artists</h1>
         <p>
           Explore the boundaries of art and technology with Liverr's AI artists
@@ -46,15 +62,15 @@ function Gigs() {
                   <span onClick={() => reSort("createdAt")}>Newest</span>
                 ) : (
                   <span onClick={() => reSort("sales")}>Best Selling</span>
-                  )}
-                  <span onClick={() => reSort("sales")}>Popular</span>
+                )}
+                <span onClick={() => reSort("sales")}>Popular</span>
               </div>
             )}
           </div>
         </div>
         <div className="cards">
-          {gigs.map((gig) => (
-            <GigCard key={gig.id} item={gig} />
+          {isLoading ? "loading" : error ? "Something went wrong" : data.map((gig) => (
+            <GigCard key={gig._id} item={gig} />
           ))}
         </div>
       </div>
