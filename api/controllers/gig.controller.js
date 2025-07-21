@@ -66,8 +66,13 @@ export const getGigs = async (req, res, next) => {
     if (q.max) filter.price.$lte = parseInt(q.max);
   }
 
+  const sortOption = {};
+  if (q.sort) {
+    sortOption[q.sort] = -1; // descending
+  }
+
   try {
-    const gigs = await Gig.find(filter);
+    const gigs = await Gig.find(filter).sort(sortOption);
     res.status(200).json(gigs);
   } catch (error) {
     next(error);

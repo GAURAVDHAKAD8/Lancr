@@ -1,4 +1,5 @@
 import createError from "../utils/createError.js";
+import User from "../models/user.model.js";
 
 export const deleteUser = async (req, res, next) => {
   try {
@@ -11,6 +12,17 @@ export const deleteUser = async (req, res, next) => {
 
     await User.findByIdAndDelete(req.params.id);
     return res.status(200).json({ message: "User has been deleted!" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Something went wrong");
+  }
+};
+
+export const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    return res.status(200).send(user);
   } catch (err) {
     console.error(err);
     return res.status(500).send("Something went wrong");
