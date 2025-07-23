@@ -6,7 +6,7 @@ import newRequest from "../../utils/newRequest";
 
 const GigCard = ({ item }) => {
   const { isLoading, error, data, refetch } = useQuery({
-    queryKey: ["gigUser"],
+    queryKey: ["gigUser",item.userId],
     queryFn: () =>
       newRequest.get(`/users/${item.userId}`).then((res) => {
         return res.data;
@@ -23,14 +23,18 @@ const GigCard = ({ item }) => {
             "something went wrong"
           ) : (
             <div className="user">
-              <img src={data.img.pp} alt="" />
-              <span>{data.username.username}</span>
+              <img src={data.img || "/img/check.png"} alt="" />
+              <span>{data.username}</span>
             </div>
           )}
           <p>{item.desc}</p>
           <div className="star">
             <img src="./img/star.png" alt="" />
-            <span>{item.star}</span>
+            <span>
+              {item.starNumber > 0
+                ? Math.round(item.totalStars / item.starNumber)
+                : "No ratings"}
+            </span>
           </div>
         </div>
         <hr />
