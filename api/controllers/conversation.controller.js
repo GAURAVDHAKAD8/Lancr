@@ -1,7 +1,6 @@
-import express from 'express';
+import createError from "../utils/createError.js";
 
-const router = express.Router();
-
-router.get("/test",)
-
-export default router;
+export const createOrder = async (req, res, next) => {
+  try {
+  } catch (error) {}
+};

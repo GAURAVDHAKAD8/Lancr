@@ -13,6 +13,7 @@ export const register = async (req, res, next) => {
     await newUser.save();
     res.status(201).send("User registered successfully");
   } catch (error) {
+    console.error("Register Error:", error);
    next(error)
   }
 };
