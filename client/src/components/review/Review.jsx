@@ -5,7 +5,7 @@ import newRequest from "../../utils/newRequest";
 
 const Review = ({ review, totalStars, starNumber }) => {
   const { isLoading, error, data } = useQuery({
-    queryKey: ["reviewUser", review.userId],
+    queryKey: [review.userId],
     queryFn: () =>
       newRequest.get(`/users/${review.userId}`).then((res) => res.data),
   });

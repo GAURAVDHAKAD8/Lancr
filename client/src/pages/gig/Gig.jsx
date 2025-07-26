@@ -17,13 +17,20 @@ function Gig() {
       }),
   });
 
-   const { isLoading:isLoadingUser , error:errorUser, data:dataUser } = useQuery({
-     queryKey: ["user"],
-     queryFn: () =>
-       newRequest.get(`/users/${data.userId}`).then((res) => {
-         return res.data;
-       }),
-   });
+  const userId = data?.userId;
+
+  const {
+    isLoading: isLoadingUser,
+    error: errorUser,
+    data: dataUser,
+  } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: () =>
+      newRequest.get(`/users/${userId}`).then((res) => {
+        return res.data;
+      }),
+    enabled: !!userId,
+  });
 
   return (
     <div className="gig">
@@ -40,9 +47,9 @@ function Gig() {
             <h1>{data.title}</h1>
             {isLoadingUser ? (
               "Loading"
-            ) : error ? (
+            ) : errorUser ? (
               "something went wrong"
-            ) : (
+            ) : dataUser ? (
               <div className="user">
                 <img
                   className="pp"
@@ -59,13 +66,14 @@ function Gig() {
                           key={index}
                           src="/img/star.png"
                           alt=""
-                         
                         />
                       ))}
                     <span>{Math.round(data.totalStars / data.starNumber)}</span>
                   </div>
                 )}
               </div>
+            ) : (
+              "User not found"
             )}
             {data.images && data.images.length > 0 ? (
               <Slider slidesToShow={1} arrowsScroll={1} className="slider">
@@ -80,9 +88,9 @@ function Gig() {
             <p>{data.desc}</p>
             {isLoadingUser ? (
               "Loading"
-            ) : error ? (
+            ) : errorUser ? (
               "something went wrong"
-            ) : (
+            ) : dataUser ? (
               <div className="seller">
                 <h2>About The Seller</h2>
                 <div className="user">
@@ -98,7 +106,6 @@ function Gig() {
                               key={index}
                               src="/img/star.png"
                               alt=""
-                            
                             />
                           ))}
                         <span>
@@ -106,7 +113,6 @@ function Gig() {
                         </span>
                       </div>
                     )}
-
                     <button>Contact Me</button>
                   </div>
                 </div>
@@ -137,7 +143,7 @@ function Gig() {
                   <p>{dataUser.desc || "No description available"}</p>
                 </div>
               </div>
-            )}
+            ) : null}
             <Reviews
               gigId={id}
               totalStars={data.totalStars}

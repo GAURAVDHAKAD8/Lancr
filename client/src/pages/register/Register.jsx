@@ -33,17 +33,31 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = await upload(file);
     try {
+      const url = await upload(file);
+
+      // Register the user
       await newRequest.post("/auth/register", {
         ...user,
         img: url,
       });
-     
+
+      // Then log the user in
+      const res = await newRequest.post("/auth/login", {
+        username: user.username,
+        password: user.password,
+      });
+
+      // Save to localStorage
+      localStorage.setItem("currentUser", JSON.stringify(res.data));
+
+      // Navigate to homepage
+      navigate("/");
     } catch (err) {
-      console.log(err);
+      console.log("Registration or login failed:", err);
     }
   };
+
   return (
     <div className="register">
       <form onSubmit={handleSubmit}>
