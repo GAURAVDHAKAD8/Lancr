@@ -29,6 +29,16 @@ export const createOrder = async (req, res, next) => {
 };
 
 
-export const getOrders = (req, res) => {
-  // your order fetching logic here
+export const getOrders = async(req, res,next) => {
+ 
+  try {
+     const order = await Order.find({
+    ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
+    isCompleted:true,
+  })
+
+  res.status(200).json(order);
+  } catch (error) {
+    
+  }
 };
