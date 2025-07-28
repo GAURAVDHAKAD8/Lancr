@@ -27,7 +27,7 @@ export const createMessage = async (req, res, next) => {
         },
         { new: true }
       );
-      console.log("✅ Updated conversation:", updatedConversation);
+     
     } catch (updateErr) {
       console.error("❌ Error updating conversation:", updateErr);
       return next(updateErr); // return early
