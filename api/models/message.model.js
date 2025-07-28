@@ -1,41 +1,24 @@
 import mongoose from "mongoose";
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
-const MessageSchema = new Schema({
-    username:{
-        type:String,
-        requireed:true,
-        unique:true,
+const MessageSchema = new Schema(
+  {
+    conversationId: {
+      type: String,
+      required: true,
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true
+    userId: {
+      type: String,
+      required: true,
     },
-    password:{
-        type:String,
-        required:true
+    desc: {
+      type: String,
+      required: true,
     },
-    img:{  
-        type:String,
-        required:false,
-    },
-    country:{
-        type:String,
-        required:true,
-    },
-    phone:{
-        type:String,       
-        required:true
-    },
-    desc:{
-        type:String,    
-        required:false
-    },
-    isSeller:{
-        type:Boolean,
-        default:false
-    }
-},{timestamps:true});
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export default mongoose.model("Message", MessageSchema);
