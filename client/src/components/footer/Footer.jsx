@@ -1,93 +1,233 @@
 import React from "react";
-import "./Footer.scss";
 
 function Footer() {
   return (
-    <div className="footer">
-      <div className="container">
-        <div className="top">
-          <div className="item">
-            <h2>Categories</h2>
-            <span>Graphics & Design</span>
-            <span>Digital Marketing</span>
-            <span>Writing & Translation</span>
-            <span>Video & Animation</span>
-            <span>Music & Audio</span>
-            <span>Programming & Tech</span>
-            <span>Data</span>
-            <span>Business</span>
-            <span>Lifestyle</span>
-            <span>Photography</span>
-            <span>Sitemap</span>
+    <div className="flex justify-center text-gray-600 my-[55px]">
+      <div className="w-[1100px]">
+        <div className="flex justify-between">
+          {/* Categories */}
+          <div className="flex flex-col gap-[10px]">
+            <h2 className="text-[16px] text-gray-500 mb-[10px]">Categories</h2>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Graphics & Design
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Digital Marketing
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Writing & Translation
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Video & Animation
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Music & Audio
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Programming & Tech
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Data
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Business
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Lifestyle
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Photography
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Sitemap
+            </span>
           </div>
-          <div className="item">
-            <h2>About</h2>
-            <span>Press & News</span>
-            <span>Partnerships</span>
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
-            <span>Intellectual Property Claims</span>
-            <span>Investor Relations</span>
-            <span>Contact Sales</span>
+
+          {/* About */}
+          <div className="flex flex-col gap-[10px]">
+            <h2 className="text-[16px] text-gray-500 mb-[10px]">About</h2>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Press & News
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Partnerships
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Privacy Policy
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Terms of Service
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Intellectual Property Claims
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Investor Relations
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Contact Sales
+            </span>
           </div>
-          <div className="item">
-            <h2>Support</h2>
-            <span>Help & Support</span>
-            <span>Trust & Safety</span>
-            <span>Selling on Liverr</span>
-            <span>Buying on Liverr</span>
+
+          {/* Support */}
+          <div className="flex flex-col gap-[10px]">
+            <h2 className="text-[16px] text-gray-500 mb-[10px]">Support</h2>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Help & Support
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Trust & Safety
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Selling on Lancr
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Buying on Lancr
+            </span>
           </div>
-          <div className="item">
-            <h2>Community</h2>
-            <span>Customer Success Stories</span>
-            <span>Community hub</span>
-            <span>Forum</span>
-            <span>Events</span>
-            <span>Blog</span>
-            <span>Influencers</span>
-            <span>Affiliates</span>
-            <span>Podcast</span>
-            <span>Invite a Friend</span>
-            <span>Become a Seller</span>
-            <span>Community Standards</span>
+
+          {/* Community */}
+          <div className="flex flex-col gap-[10px]">
+            <h2 className="text-[16px] text-gray-500 mb-[10px]">Community</h2>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Customer Success Stories
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Community hub
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Forum
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Events
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Blog
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Influencers
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Affiliates
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Podcast
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Invite a Friend
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Become a Seller
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Community Standards
+            </span>
           </div>
-          <div className="item">
-            <h2>More From Fiverr</h2>
-            <span>Liverr Business</span>
-            <span>Liverr Pro</span>
-            <span>Liverr Logo Maker</span>
-            <span>Liverr Guides</span>
-            <span>Get Inspired</span>
-            <span>Liverr Select</span>
-            <span>ClearVoice</span>
-            <span>Liverr Workspace</span>
-            <span>Learn</span>
-            <span>Working Not Working</span>
+
+          {/* More From Lancr */}
+          <div className="flex flex-col gap-[10px]">
+            <h2 className="text-[16px] text-gray-500 mb-[10px]">
+              More From Lancr
+            </h2>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Lancr Business
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Lancr Pro
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Lancr Logo Maker
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Lancr Guides
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Get Inspired
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Lancr Select
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              ClearVoice
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Lancr Workspace
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Learn
+            </span>
+            <span className="font-light text-[14px] text-[#747474] hover:text-[#1dbf73] cursor-pointer">
+              Working Not Working
+            </span>
           </div>
         </div>
-        <hr />
-        <div className="bottom">
-          <div className="left">
-            <h2>liverr</h2>
-            <span>© Liverr International Ltd. 2023</span>
+
+        <hr className="my-[15px] border-[#e4e4e4]" />
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-[10px] w-max">
+            <h2 className="text-[20px] font-bold cursor-pointer">Lancr</h2>
+            <span className="text-[12px] text-[#747474] whitespace-nowrap">
+              © Lancr International Ltd. 2023
+            </span>
           </div>
-          <div className="right">
-            <div className="social">
-              <img src="/img/twitter.png" alt="" />
-              <img src="/img/facebook.png" alt="" />
-              <img src="/img/linkedin.png" alt="" />
-              <img src="/img/pinterest.png" alt="" />
-              <img src="/img/instagram.png" alt="" />
+
+          <div className="flex items-center gap-[30px] w-max">
+            <div className="flex gap-[10px]">
+              <img
+                src="/img/twitter.png"
+                alt="Twitter"
+                className="w-[24px] h-[24px] hover:opacity-80 cursor-pointer"
+              />
+              <img
+                src="/img/facebook.png"
+                alt="Facebook"
+                className="w-[24px] h-[24px] hover:opacity-80 cursor-pointer"
+              />
+              <img
+                src="/img/linkedin.png"
+                alt="LinkedIn"
+                className="w-[24px] h-[24px] hover:opacity-80 cursor-pointer"
+              />
+              <img
+                src="/img/pinterest.png"
+                alt="Pinterest"
+                className="w-[24px] h-[24px] hover:opacity-80 cursor-pointer"
+              />
+              <img
+                src="/img/instagram.png"
+                alt="Instagram"
+                className="w-[24px] h-[24px] hover:opacity-80 cursor-pointer"
+              />
             </div>
-            <div className="link">
-              <img src="/img/language.png" alt="" />
-              <span>English</span>
+
+            <div className="flex items-center cursor-pointer group">
+              <img
+                src="/img/language.png"
+                alt="Language"
+                className="w-[24px] h-[24px] group-hover:opacity-80"
+              />
+              <span className="text-[14px] text-[#747474] ml-[5px] group-hover:text-[#1dbf73]">
+                English
+              </span>
             </div>
-            <div className="link">
-              <img src="/img/coin.png" alt="" />
-              <span>USD</span>
+
+            <div className="flex items-center cursor-pointer group">
+              <img
+                src="/img/coin.png"
+                alt="Currency"
+                className="w-[24px] h-[24px] group-hover:opacity-80"
+              />
+              <span className="text-[14px] text-[#747474] ml-[5px] group-hover:text-[#1dbf73]">
+                USD
+              </span>
             </div>
-            <img src="/img/accessibility.png" alt="" />
+
+            <img
+              src="/img/accessibility.png"
+              alt="Accessibility"
+              className="w-[24px] h-[24px] hover:opacity-80 cursor-pointer"
+            />
           </div>
         </div>
       </div>

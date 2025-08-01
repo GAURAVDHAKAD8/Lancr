@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Orders.scss";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 
@@ -19,13 +18,11 @@ const Orders = () => {
   const handleContact = async (order) => {
     const otherUserId = currentUser.isSeller ? order.buyerId : order.sellerId;
 
-    // Prevent messaging yourself
     if (otherUserId === currentUser._id) {
       return alert("You cannot message yourself");
     }
 
     try {
-      // Try to find existing conversation
       const conversationId = currentUser.isSeller
         ? `${currentUser._id}${otherUserId}`
         : `${otherUserId}${currentUser._id}`;
@@ -36,7 +33,6 @@ const Orders = () => {
       navigate(`/message/${res.data.id}`);
     } catch (err) {
       if (err.response?.status === 404) {
-        // Create new conversation if none exists
         const res = await newRequest.post(`/conversations/`, {
           to: otherUserId,
         });
@@ -48,37 +44,41 @@ const Orders = () => {
   };
 
   return (
-    <div className="orders">
+    <div className="flex justify-center text-[#555]">
       {isLoading ? (
         "Loading..."
       ) : error ? (
         "Error!"
       ) : (
-        <div className="container">
-          <div className="title">
+        <div className="w-[1100px] py-[150px]">
+          <div className="flex justify-between">
             <h1>Orders</h1>
           </div>
-          <table>
+          <table className="w-full">
             <thead>
-              <tr>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Contact</th>
+              <tr className="h-[50px]">
+                <th className="text-left">Image</th>
+                <th className="text-left">Title</th>
+                <th className="text-left">Price</th>
+                <th className="text-left">Contact</th>
               </tr>
             </thead>
             <tbody>
               {data?.length > 0 ? (
                 data.map((order) => (
-                  <tr key={order._id}>
+                  <tr key={order._id} className="h-[50px] even:bg-[#1dbf730f]">
                     <td>
-                      <img className="image" src={order.img} alt="" />
+                      <img
+                        className="w-[50px] h-[25px] object-cover"
+                        src={order.img}
+                        alt=""
+                      />
                     </td>
                     <td>{order.title}</td>
                     <td>${order.price}</td>
                     <td>
                       <img
-                        className="message"
+                        className="w-[25px] cursor-pointer"
                         src="/img/message.png"
                         alt=""
                         onClick={() => handleContact(order)}
