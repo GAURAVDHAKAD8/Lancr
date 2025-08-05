@@ -1,9 +1,10 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ["Poppins", "sans-serif"],
+    },
     extend: {},
   },
   plugins: [],
-  safelist: ["[&_.link]:no-underline", "[&_.link]:text-inherit"],
 };

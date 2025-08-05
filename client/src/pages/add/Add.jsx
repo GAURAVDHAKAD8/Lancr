@@ -100,178 +100,248 @@ const Add = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="w-[1100px] py-[150px]">
-        <h1 className="w-max mb-[20px] text-gray-500 font-[300]">
-          Add New Gig
-        </h1>
-        {error && <div className="error">{error}</div>}
-        <div className="flex justify-between gap-[100px]">
-          <div className="flex-1 flex flex-col gap-[8px] py-[10px]">
-            <label className="text-gray-500 text-[18px] py-[10px]">
-              Title*
-            </label>
-            <input
-              type="text"
-              name="title"
-              placeholder="e.g. I will do something I'm really good at"
-              onChange={handleChange}
-              className="p-[20px]"
-              required
-            />
+    <div className="min-h-screen bg-gray-900 py-[170px] px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-white">Add New Gig</h1>
+          <p className="mt-2 text-sm text-gray-400">
+            Fill in the details to create your new service offering
+          </p>
+        </div>
 
-            <label className="text-gray-500 text-[18px] py-[10px] ">
-              Category*
-            </label>
-            <select
-              name="category"
-              onChange={handleChange}
-              value={state.category || ""}
-              className="p-[20px]"
-              required
-            >
-              <option value="">Select a category</option>
-              <option value="design">Design</option>
-              <option value="web">Web Development</option>
-              <option value="animation">Animation</option>
-              <option value="music">Music</option>
-            </select>
+        {error && (
+          <div className="mb-6 p-4 bg-red-900/30 text-red-300 rounded-md">
+            {error}
+          </div>
+        )}
 
-            <div className="flex items-center gap-[20px] py-[10px]">
-              <div className="flex flex-col gap-[20px]">
-                <label className="text-gray-500 text-[18px] py-[10px]">
-                  Cover Image*
+        <div className="bg-gray-800 shadow rounded-lg overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+            {/* Left Column */}
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Title*
                 </label>
                 <input
-                  type="file"
-                  onChange={(e) => setSingleFile(e.target.files[0])}
+                  type="text"
+                  name="title"
+                  placeholder="e.g. I will do something I'm really good at"
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400"
                   required
                 />
-                <label className="text-gray-500 text-[18px] py-[10px]">
-                  Additional Images
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Category*
+                </label>
+                <select
+                  name="category"
+                  onChange={handleChange}
+                  value={state.category || ""}
+                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white"
+                  required
+                >
+                  <option value="" className="bg-gray-700">
+                    Select a category
+                  </option>
+                  <option value="design" className="bg-gray-700">
+                    Design
+                  </option>
+                  <option value="web" className="bg-gray-700">
+                    Web Development
+                  </option>
+                  <option value="animation" className="bg-gray-700">
+                    Animation
+                  </option>
+                  <option value="music" className="bg-gray-700">
+                    Music
+                  </option>
+                </select>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">
+                    Cover Image*
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="file"
+                      onChange={(e) => setSingleFile(e.target.files[0])}
+                      className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-900/50 file:text-purple-300 hover:file:bg-purple-900/70"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">
+                    Additional Images
+                  </label>
+                  <input
+                    type="file"
+                    multiple
+                    onChange={(e) => setFiles(e.target.files)}
+                    className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-900/50 file:text-purple-300 hover:file:bg-purple-900/70"
+                  />
+                </div>
+
+                <button
+                  onClick={handleUpload}
+                  disabled={uploading}
+                  className="w-full md:w-auto px-6 py-3 bg-purple-700 text-white font-medium rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {uploading ? "Uploading..." : "Upload Images"}
+                </button>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Description*
+                </label>
+                <textarea
+                  name="desc"
+                  placeholder="Brief descriptions to introduce your service to customers"
+                  onChange={handleChange}
+                  value={state.desc || ""}
+                  rows={6}
+                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400"
+                  required
+                ></textarea>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Service Title*
                 </label>
                 <input
-                  type="file"
-                  multiple
-                  onChange={(e) => setFiles(e.target.files)}
+                  type="text"
+                  name="shortTitle"
+                  placeholder="e.g. One-page web design"
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400"
+                  required
                 />
               </div>
-              <button
-                onClick={handleUpload}
-                disabled={uploading}
-                className="border-none p-[20px] text-white font-[500] text-[18px] bg-[#1dbf73] cursor-pointer"
-              >
-                {uploading ? "Uploading..." : "Upload"}
-              </button>
-            </div>
 
-            <label className="text-gray-500 text-[18px] py-[10px]">
-              Description*
-            </label>
-            <textarea
-              name="desc"
-              placeholder="Brief descriptions to introduce your service to customers"
-              onChange={handleChange}
-              value={state.desc || ""}
-              className="p-[20px]"
-              required
-            ></textarea>
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Short Description*
+                </label>
+                <textarea
+                  name="shortDesc"
+                  onChange={handleChange}
+                  placeholder="Short description of your service"
+                  rows={3}
+                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400"
+                  required
+                ></textarea>
+              </div>
 
-          <div className="flex-1 flex flex-col gap-[10px] justify-between">
-            <label className="text-gray-500 text-[18px]">Service Title*</label>
-            <input
-              type="text"
-              name="shortTitle"
-              placeholder="e.g. One-page web design"
-              onChange={handleChange}
-              className="p-[20px]"
-              required
-            />
-
-            <label className="text-gray-500 text-[18px]">
-              Short Description*
-            </label>
-            <textarea
-              name="shortDesc"
-              onChange={handleChange}
-              placeholder="Short description of your service"
-              className="p-[20px]"
-              required
-            ></textarea>
-
-            <label className="text-gray-500 text-[18px]">
-              Delivery Time (days)*
-            </label>
-            <input
-              type="number"
-              name="deliveryTime"
-              onChange={handleChange}
-              min="1"
-              className="p-[20px]"
-              required
-            />
-
-            <label className="text-gray-500 text-[18px]">
-              Revision Number*
-            </label>
-            <input
-              type="number"
-              name="revisionNumber"
-              onChange={handleChange}
-              min="0"
-              className="p-[20px]"
-              required
-            />
-
-            <label className="text-gray-500 text-[18px]">Add Features</label>
-            <form className="flex justify-between" onSubmit={handleFeature}>
-              <input
-                type="text"
-                placeholder="e.g. page design"
-                className="w-[80%] p-[20px]"
-              />
-              <button
-                type="submit"
-                className="border-none p-[20px] text-white font-[500] text-[18px] bg-[#1dbf73] cursor-pointer"
-              >
-                Add
-              </button>
-            </form>
-
-            <div className="flex gap-[20px]">
-              {state?.features?.map((f) => (
-                <div className="item" key={f}>
-                  <button
-                    onClick={() =>
-                      dispatch({ type: "REMOVE_FEATURE", payload: f })
-                    }
-                    className="h-[30px] text-[12px] font-[400] bg-transparent text-red-500 border border-red-500 flex items-center gap-[20px]"
-                  >
-                    {f}
-                    <span>X</span>
-                  </button>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">
+                    Delivery Time (days)*
+                  </label>
+                  <input
+                    type="number"
+                    name="deliveryTime"
+                    onChange={handleChange}
+                    min="1"
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white"
+                    required
+                  />
                 </div>
-              ))}
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">
+                    Revision Number*
+                  </label>
+                  <input
+                    type="number"
+                    name="revisionNumber"
+                    onChange={handleChange}
+                    min="0"
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Add Features
+                </label>
+                <form className="flex gap-2" onSubmit={handleFeature}>
+                  <input
+                    type="text"
+                    placeholder="e.g. page design"
+                    className="flex-1 px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400"
+                  />
+                  <button
+                    type="submit"
+                    className="px-4 py-3 bg-purple-700 text-white font-medium rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                  >
+                    Add
+                  </button>
+                </form>
+
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {state?.features?.map((f) => (
+                    <span
+                      key={f}
+                      className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-900/30 text-purple-300"
+                    >
+                      {f}
+                      <button
+                        onClick={() =>
+                          dispatch({ type: "REMOVE_FEATURE", payload: f })
+                        }
+                        className="ml-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full text-purple-400 hover:bg-purple-800 hover:text-purple-300"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Price ($)*
+                </label>
+                <div className="relative rounded-md shadow-sm">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span className="text-gray-400 sm:text-sm">$</span>
+                  </div>
+                  <input
+                    type="number"
+                    onChange={handleChange}
+                    name="price"
+                    min="1"
+                    className="block w-full pl-7 pr-12 py-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white"
+                    required
+                  />
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    <span className="text-gray-400 sm:text-sm">USD</span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                className="w-full px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-700 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={handleSubmit}
+                disabled={mutation.isLoading}
+              >
+                {mutation.isLoading ? "Creating..." : "Create Gig"}
+              </button>
             </div>
-
-            <label className="text-gray-500 text-[18px]">Price ($)*</label>
-            <input
-              type="number"
-              onChange={handleChange}
-              name="price"
-              min="1"
-              className="p-[20px]"
-              required
-            />
-
-            <button
-              className="border-none p-[20px] text-white font-[500] text-[18px] bg-[#1dbf73] cursor-pointer"
-              onClick={handleSubmit}
-              disabled={mutation.isLoading}
-            >
-              {mutation.isLoading ? "Creating..." : "Create Gig"}
-            </button>
           </div>
         </div>
       </div>

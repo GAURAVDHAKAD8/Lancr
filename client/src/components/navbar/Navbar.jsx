@@ -33,74 +33,106 @@ function Navbar() {
 
   return (
     <div
-      className={`w-full flex flex-col items-center fixed top-0 left-0 right-0 z-[999] transition-all duration-500 ease-in-out ${
-        active || pathname !== "/"
-          ? "bg-[#ffffff] text-[#000000] shadow-md"
-          : "bg-[#013914] text-[#ffffff]"
-      }`}
+      className={`w-full fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        active ? "shadow-lg" : ""
+      } bg-gray-900 text-white`}
     >
-      <div className="w-full flex justify-center">
-        <div className="w-full max-w-[1100px] flex items-center justify-between py-[20px] px-[20px]">
-          <div className="text-[34px] font-bold">
-            <Link className="no-underline" to="/">
-              <span className="text-inherit">Lancr</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-[15px] lg:px-8">
+        <div className="flex justify-between items-center h-[80px]">
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            <Link to="/" className="flex items-center">
+              <span className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+                Lancr
+              </span>
+              <span className="text-purple-400 font-bold">.</span>
             </Link>
-            <span className="text-[#1dbf73] font-bold">.</span>
           </div>
-          <div className="flex items-center gap-[24px] font-[500] font-['Montserrat']">
-            <span className="whitespace-nowrap">Lancr Business</span>
-            <span className="whitespace-nowrap">Explore</span>
-            <span className="whitespace-nowrap">English</span>
+
+          {/* Main Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <Link
+              to="/"
+              className="text-sm font-medium hover:text-purple-400 transition-colors duration-200"
+            >
+              Lancr Business
+            </Link>
+            <Link
+              to="/"
+              className="text-sm font-medium hover:text-purple-400 transition-colors duration-200"
+            >
+              Explore
+            </Link>
+            <Link
+              to="/"
+              className="text-sm font-medium hover:text-purple-400 transition-colors duration-200"
+            >
+              English
+            </Link>
             {!currentUser?.isSeller && (
-              <span className="whitespace-nowrap">Become a Seller</span>
-            )}
-            {currentUser ? (
-              <div
-                className="flex items-center gap-[10px] cursor-pointer relative"
-                onClick={() => setOpen(!open)}
+              <Link
+                to="/"
+                className="text-sm font-medium hover:text-purple-400 transition-colors duration-200"
               >
-                <img
-                  src={currentUser.img || "/img/noavatar.jpg"}
-                  alt=""
-                  className="w-[32px] h-[32px] rounded-full object-cover"
-                />
-                <span>{currentUser?.username}</span>
+                Become a Seller
+              </Link>
+            )}
+          </div>
+
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            {currentUser ? (
+              <div className="relative">
+                <button
+                  onClick={() => setOpen(!open)}
+                  className="flex items-center space-x-2 focus:outline-none"
+                >
+                  <img
+                    src={currentUser.img || "/img/noavatar.jpg"}
+                    alt="User"
+                    className="w-10 h-10 rounded-full object-cover border border-gray-700"
+                  />
+                  <span className="text-xl font-medium">
+                    {currentUser?.username}
+                  </span>
+                </button>
+
                 {open && (
-                  <div className="absolute top-[50px] right-0 p-[20px] bg-[#ffffff] rounded-[10px] z-[9999] border border-[#e5e7eb] flex flex-col gap-[10px] w-[200px] font-[300] text-[#6b7280]">
+                  <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-700">
                     {currentUser.isSeller && (
                       <>
                         <Link
-                          className="no-underline text-inherit hover:text-[#1dbf73]"
                           to="/mygigs"
+                          className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-purple-400"
                         >
                           Gigs
                         </Link>
                         <Link
-                          className="no-underline text-inherit hover:text-[#1dbf73]"
                           to="/add"
+                          className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-purple-400"
                         >
                           Add New Gig
                         </Link>
                       </>
                     )}
                     <Link
-                      className="no-underline text-inherit hover:text-[#1dbf73]"
                       to="/orders"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-purple-400"
                     >
                       Orders
                     </Link>
                     <Link
-                      className="no-underline text-inherit hover:text-[#1dbf73]"
                       to="/messages"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-purple-400"
                     >
                       Messages
                     </Link>
-                    <Link
-                      className="no-underline text-inherit hover:text-[#1dbf73] cursor-pointer"
+                    <button
                       onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-purple-400"
                     >
                       Logout
-                    </Link>
+                    </button>
                   </div>
                 )}
               </div>
@@ -108,89 +140,140 @@ function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="no-underline text-inherit hover:text-[#1dbf73]"
+                  className="text-sm font-medium hover:text-purple-400 transition-colors duration-200"
                 >
                   Sign in
                 </Link>
-                <Link className="no-underline text-inherit" to="/register">
-                  <button
-                    className={`px-[20px] py-[10px] rounded-[5px] border border-solid cursor-pointer ${
-                      active || pathname !== "/"
-                        ? "bg-[#ffffff] text-[#1dbf73] border-[#1dbf73] hover:bg-[#f0f0f0]"
-                        : "bg-transparent text-[#ffffff] border-[#ffffff] hover:bg-[#1dbf73] hover:border-[#1dbf73]"
-                    }`}
-                  >
+                <Link to="/register">
+                  <button className="px-4 py-2 rounded-md text-sm font-medium bg-purple-500 text-white hover:bg-purple-600 transition-colors duration-200">
                     Join
                   </button>
                 </Link>
               </>
             )}
           </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setOpen(!open)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Mobile menu */}
+      <div className={`md:hidden ${open ? "block" : "hidden"} bg-gray-800`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          {currentUser ? (
+            <>
+              <div className="flex items-center px-3 py-2">
+                <img
+                  src={currentUser.img || "/img/noavatar.jpg"}
+                  alt="User"
+                  className="w-8 h-8 rounded-full object-cover mr-2"
+                />
+                <span className="text-sm font-medium">
+                  {currentUser?.username}
+                </span>
+              </div>
+              {currentUser.isSeller && (
+                <>
+                  <Link
+                    to="/mygigs"
+                    className="block px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-purple-400"
+                  >
+                    Gigs
+                  </Link>
+                  <Link
+                    to="/add"
+                    className="block px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-purple-400"
+                  >
+                    Add New Gig
+                  </Link>
+                </>
+              )}
+              <Link
+                to="/orders"
+                className="block px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-purple-400"
+              >
+                Orders
+              </Link>
+              <Link
+                to="/messages"
+                className="block px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-purple-400"
+              >
+                Messages
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-purple-400"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="block px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-purple-400"
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/register"
+                className="block px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-purple-400"
+              >
+                Join
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Category Links */}
       {(active || pathname !== "/") && (
-        <>
-          <hr className="w-full border-t border-b border-[#ebe9e9]" />
-          <div className="w-full flex justify-center">
-            <div className="w-full max-w-[1100px] py-[10px] px-[20px] flex justify-between text-[#6b7280] font-[300] font-['Montserrat']">
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                Graphics & Design
-              </Link>
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                Video & Animation
-              </Link>
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                Writing & Translation
-              </Link>
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                AI Services
-              </Link>
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                Digital Marketing
-              </Link>
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                Music & Audio
-              </Link>
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                Programming & Tech
-              </Link>
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                Business
-              </Link>
-              <Link
-                className="no-underline text-inherit hover:text-[#1dbf73]"
-                to="/"
-              >
-                Lifestyle
-              </Link>
+        <div className="bg-gray-800 border-t border-gray-700">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex overflow-x-auto py-3 space-x-6 hide-scrollbar">
+              {[
+                "Graphics & Design",
+                "Video & Animation",
+                "Writing & Translation",
+                "AI Services",
+                "Digital Marketing",
+                "Music & Audio",
+                "Programming & Tech",
+                "Business",
+                "Lifestyle",
+              ].map((category) => (
+                <Link
+                  key={category}
+                  to="/"
+                  className="flex-shrink-0 text-[14px] font-medium text-gray-400 hover:text-purple-400 transition-colors duration-200"
+                >
+                  {category}
+                </Link>
+              ))}
             </div>
           </div>
-          <hr className="w-full border-t border-b border-[#ebe9e9]" />
-        </>
+        </div>
       )}
     </div>
   );

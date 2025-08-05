@@ -10,49 +10,53 @@ function Featured() {
   };
 
   return (
-    <div className="w-full bg-[#013914] text-[#ffffff]">
-      <div className="max-w-[1100px] mx-auto px-[20px] py-[100px]">
-        {/* Flex row with centered items */}
-        <div className="flex items-center gap-[50px]">
-          {/* Text Content (Left) */}
-          <div className="flex-1">
-            <h1 className="text-[50px] leading-[1.2] mb-[30px]">
+    <div className="w-full bg-gradient-to-r from-gray-900 to-purple-900/50 text-white">
+      <div className="max-w-[1450px] mx-auto px-6 py-[190px]">
+        <div className="flex flex-col md:flex-row items-center gap-16">
+          <div className="flex-1 space-y-8">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
               Find the perfect{" "}
-              <span className="italic font-[300]">freelance</span> services for
+              <span className="font-light italic">freelance</span> services for
               your business
             </h1>
 
-            {/* Search Bar */}
-            <div className="bg-[#ffffff] rounded-[5px] flex items-center mb-[30px]">
-              <div className="flex items-center gap-[10px] flex-1">
-                <img
-                  src="./img/search.png"
-                  alt="Search"
-                  className="w-[20px] h-[20px] ml-[15px]"
-                />
+            <div className="flex bg-white rounded-lg overflow-hidden shadow-lg">
+              <div className="flex items-center gap-3 flex-1 px-4">
+                <svg
+                  className="w-5 h-5 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  ></path>
+                </svg>
                 <input
                   type="text"
                   placeholder='Try "building mobile app"'
                   onChange={(e) => setInput(e.target.value)}
-                  className="w-full p-[10px] border-none outline-none placeholder:text-[#808080]"
+                  className="w-full py-3 outline-none text-gray-800 placeholder-gray-400"
                 />
               </div>
               <button
                 onClick={handleSubmit}
-                className="w-[120px] h-[50px] border-none bg-[#1dbf73] text-[#ffffff] cursor-pointer hover:bg-[#19a463]"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
               >
                 Search
               </button>
             </div>
 
-            {/* Popular Tags */}
-            <div className="flex items-center gap-[10px]">
-              <span>Popular:</span>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-gray-300">Popular:</span>
               {["Web Design", "WordPress", "Logo Design", "AI Services"].map(
                 (tag) => (
                   <button
                     key={tag}
-                    className="text-[#ffffff] border border-[#ffffff] px-[10px] py-[5px] rounded-[20px] bg-transparent text-[14px] hover:bg-[#ffffff20]"
+                    className="text-white border border-gray-300 px-4 py-1 rounded-full bg-transparent text-sm hover:bg-white/10 transition-colors duration-200"
                   >
                     {tag}
                   </button>
@@ -61,12 +65,11 @@ function Featured() {
             </div>
           </div>
 
-          {/* Image (Right) */}
           <div className="flex-1 flex justify-center">
             <img
-              src="./img/man.png"
+              src="./img/intro.gif"
               alt="Freelancer"
-              className="max-w-full h-auto"
+              className="max-w-full h-auto rounded-lg shadow-xl"
             />
           </div>
         </div>

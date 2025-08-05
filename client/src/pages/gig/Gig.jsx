@@ -32,22 +32,22 @@ function Gig() {
   });
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center bg-gray-900">
       {isLoading ? (
-        "loading"
+        <div className="text-gray-300">loading</div>
       ) : error ? (
-        "something went wrong"
+        <div className="text-red-400">something went wrong</div>
       ) : (
-        <div className="w-[1400px] py-[30px] flex gap-[50px]">
+        <div className="w-[1400px] py-[220px] flex gap-[50px]">
           <div className="flex-[2] flex flex-col gap-[20px]">
-            <span className="font-[300] uppercase text-[13px] text-[#555]">
+            <span className="font-[300] uppercase text-[13px] text-gray-400">
               Lancr {">"} Graphics & Design {">"}
             </span>
-            <h1>{data.title}</h1>
+            <h1 className="text-white">{data.title}</h1>
             {isLoadingUser ? (
-              "Loading"
+              <div className="text-gray-300">Loading</div>
             ) : errorUser ? (
-              "something went wrong"
+              <div className="text-red-400">something went wrong</div>
             ) : dataUser ? (
               <div className="flex items-center gap-[10px]">
                 <img
@@ -55,7 +55,7 @@ function Gig() {
                   src={dataUser.img || "/img/noavatar.jpg"}
                   alt=""
                 />
-                <span className="text-[14px] font-[500]">
+                <span className="text-[14px] font-[500] text-gray-300">
                   {dataUser.username}
                 </span>
                 {data.starNumber > 0 && (
@@ -77,14 +77,10 @@ function Gig() {
                 )}
               </div>
             ) : (
-              "User not found"
+              <div className="text-gray-300">User not found</div>
             )}
             {data.images && data.images.length > 0 ? (
-              <Slider
-                slidesToShow={1}
-                arrowsScroll={1}
-                className="bg-[#F5F5F5]"
-              >
+              <Slider slidesToShow={1} arrowsScroll={1} className="bg-gray-800">
                 {data.images.map((image, index) => (
                   <img
                     key={index}
@@ -95,17 +91,19 @@ function Gig() {
                 ))}
               </Slider>
             ) : (
-              <div>No images available</div>
+              <div className="text-gray-400">No images available</div>
             )}
-            <h2 className="font-[400]">About This Gig</h2>
-            <p className="font-[300] leading-[25px] text-[#555]">{data.desc}</p>
+            <h2 className="font-[400] text-white">About This Gig</h2>
+            <p className="font-[300] leading-[25px] text-gray-400">
+              {data.desc}
+            </p>
             {isLoadingUser ? (
-              "Loading"
+              <div className="text-gray-300">Loading</div>
             ) : errorUser ? (
-              "something went wrong"
+              <div className="text-red-400">something went wrong</div>
             ) : dataUser ? (
               <div className="mt-[50px] flex flex-col gap-[20px]">
-                <h2>About The Seller</h2>
+                <h2 className="text-white">About The Seller</h2>
                 <div className="flex items-center gap-[20px]">
                   <img
                     src={dataUser.img || "/img/noavatar.jpg"}
@@ -113,7 +111,7 @@ function Gig() {
                     className="w-[100px] h-[100px] rounded-[50%] object-cover"
                   />
                   <div className="flex flex-col gap-[10px]">
-                    <span>{dataUser.username}</span>
+                    <span className="text-gray-300">{dataUser.username}</span>
                     {data.starNumber > 0 && (
                       <div className="flex items-center gap-[5px]">
                         {Array(Math.round(data.totalStars / data.starNumber))
@@ -131,36 +129,46 @@ function Gig() {
                         </span>
                       </div>
                     )}
-                    <button className="bg-white rounded-[5px] border border-gray-400 p-[10px]">
+                    <button className="bg-gray-700 text-gray-300 rounded-[5px] border border-gray-600 p-[10px] hover:bg-gray-600">
                       Contact Me
                     </button>
                   </div>
                 </div>
-                <div className="border border-[lightgray] rounded-[5px] p-[20px] mt-[20px]">
+                <div className="border border-gray-700 rounded-[5px] p-[20px] mt-[20px] bg-gray-800">
                   <div className="flex justify-between flex-wrap">
                     <div className="w-[300px] flex flex-col gap-[10px] mb-[20px]">
-                      <span className="font-[300]">From</span>
-                      <span>{dataUser.country}</span>
+                      <span className="font-[300] text-gray-400">From</span>
+                      <span className="text-gray-300">{dataUser.country}</span>
                     </div>
                     <div className="w-[300px] flex flex-col gap-[10px] mb-[20px]">
-                      <span className="font-[300]">Member since</span>
-                      <span>Aug 2022</span>
+                      <span className="font-[300] text-gray-400">
+                        Member since
+                      </span>
+                      <span className="text-gray-300">Aug 2022</span>
                     </div>
                     <div className="w-[300px] flex flex-col gap-[10px] mb-[20px]">
-                      <span className="font-[300]">Avg. response time</span>
-                      <span>4 hours</span>
+                      <span className="font-[300] text-gray-400">
+                        Avg. response time
+                      </span>
+                      <span className="text-gray-300">4 hours</span>
                     </div>
                     <div className="w-[300px] flex flex-col gap-[10px] mb-[20px]">
-                      <span className="font-[300]">Last delivery</span>
-                      <span>1 day</span>
+                      <span className="font-[300] text-gray-400">
+                        Last delivery
+                      </span>
+                      <span className="text-gray-300">1 day</span>
                     </div>
                     <div className="w-[300px] flex flex-col gap-[10px] mb-[20px]">
-                      <span className="font-[300]">Languages</span>
-                      <span>English</span>
+                      <span className="font-[300] text-gray-400">
+                        Languages
+                      </span>
+                      <span className="text-gray-300">English</span>
                     </div>
                   </div>
-                  <hr className="h-0 border-[0.5px] border-[lightgray] my-[20px]" />
-                  <p>{dataUser.desc || "No description available"}</p>
+                  <hr className="h-0 border-[0.5px] border-gray-700 my-[20px]" />
+                  <p className="text-gray-400">
+                    {dataUser.desc || "No description available"}
+                  </p>
                 </div>
               </div>
             ) : null}
@@ -170,18 +178,18 @@ function Gig() {
               starNumber={data.starNumber}
             />
           </div>
-          <div className="flex-1 border border-[lightgray] rounded-[5px] p-[20px] flex flex-col gap-[20px] h-max max-h-[500px] sticky top-[150px]">
+          <div className="flex-1 border border-gray-700 rounded-[5px] p-[20px] flex flex-col gap-[20px] h-max max-h-[500px] sticky top-[150px] bg-gray-800">
             <div className="flex items-center justify-between">
-              <h3 className="font-[500]">{data.shortTitle}</h3>
-              <h2 className="font-[300]">${data.price}</h2>
+              <h3 className="font-[500] text-white">{data.shortTitle}</h3>
+              <h2 className="font-[300] text-white">${data.price}</h2>
             </div>
-            <p className="text-gray-500 my-[10px]">{data.shortDesc}</p>
+            <p className="text-gray-400 my-[10px]">{data.shortDesc}</p>
             <div className="flex items-center justify-between text-[14px]">
-              <div className="flex items-center gap-[10px]">
+              <div className="flex items-center gap-[10px] text-gray-300">
                 <img src="/img/clock.png" alt="" className="w-[20px]" />
                 <span>{data.deliveryDate} Days Delivery</span>
               </div>
-              <div className="flex items-center gap-[10px]">
+              <div className="flex items-center gap-[10px] text-gray-300">
                 <img src="/img/recycle.png" alt="" className="w-[20px]" />
                 <span>{data.revisionNumber} Revisions</span>
               </div>
@@ -189,7 +197,7 @@ function Gig() {
             <div className="features">
               {data.features.map((feature) => (
                 <div
-                  className="flex items-center gap-[10px] font-[300] text-gray-500 mb-[5px]"
+                  className="flex items-center gap-[10px] font-[300] text-gray-400 mb-[5px]"
                   key={feature}
                 >
                   <img src="/img/greencheck.png" alt="" className="w-[14px]" />
@@ -198,7 +206,7 @@ function Gig() {
               ))}
             </div>
             <Link to={`/pay/${id}`}>
-              <button className="bg-[#1dbf73] p-[10px] text-white font-[500] border-none text-[18px] cursor-pointer">
+              <button className="bg-[#1dbf73] p-[10px] text-white font-[500] border-none text-[18px] cursor-pointer hover:bg-[#19a463]">
                 Continue
               </button>
             </Link>

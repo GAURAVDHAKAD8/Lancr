@@ -12,7 +12,7 @@ const Message = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages", id],
     queryFn: () => newRequest.get(`/messages/${id}`).then((res) => res.data),
-    refetchInterval: 5000, // Checks server every 2 seconds
+    refetchInterval: 5000,
   });
 
   const mutation = useMutation({
@@ -34,62 +34,142 @@ const Message = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="w-[1000px] my-[150px]">
-        <span className="font-[300] text-[14px] text-[#555]">
-          <Link to="/messages">Messages</Link> {">"} John Doe{" >"}
-        </span>
-        {isLoading ? (
-          "loading"
-        ) : error ? (
-          "error"
-        ) : (
-          <div className="my-[30px] py-[50px] flex flex-col gap-[20px] h-[500px] overflow-scroll">
-            {data.map((m) => (
-              <div
-                className={`flex gap-[20px] max-w-[600px] text-[18px] ${
-                  m.userId === currentUser._id
-                    ? "flex-row-reverse self-end"
-                    : ""
-                }`}
-                key={m._id}
-              >
-                <img
-                  src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                  className="w-[30px] h-[30px] rounded-[50%] object-cover"
-                />
-                <p
-                  className={`max-w-[500px] p-[20px] ${
-                    m.userId === currentUser._id
-                      ? "bg-[royalblue] text-[#FFFFFF] text-[13px]  rounded-[20px_0px_20px_20px]"
-                      : "bg-[rgb(244,241,241)] text-gray-500 font-[300] text-[13px]  rounded-[0px_20px_20px_20px]"
-                  }`}
-                >
-                  {m.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-        <hr className="h-0 border-[0.5px] border-[rgb(232,230,230)] mb-[20px]" />
-        <form
-          className="flex items-center justify-between"
-          onSubmit={handleSubmit}
-        >
-          <textarea
-            type="text"
-            placeholder="write a message"
-            className="w-[80%] h-[100px] p-[10px] border border-[lightgray] rounded-[10px]"
-          />
-          <button
-            type="submit"
-            className="bg-[#1dbf73] p-[20px] text-white font-[500] border-none rounded-[10px] cursor-pointer w-[100px]"
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-[170px] px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-6">
+          <Link
+            to="/messages"
+            className="text-purple-400 hover:text-purple-300 transition-colors duration-200 font-medium"
           >
-            Send
-          </button>
-        </form>
+            ← Back to Messages
+          </Link>
+        </div>
+
+        <div className="bg-gray-800 rounded-xl shadow-2xl border border-gray-700 overflow-hidden">
+          {/* Chat header */}
+          <div className="bg-gray-700 px-6 py-4 border-b border-gray-600">
+            <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+              Conversation
+            </h2>
+          </div>
+
+          {/* Messages area */}
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+            </div>
+          ) : error ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="bg-red-900/20 border border-red-700 text-red-300 px-4 py-3 rounded-lg">
+                Error loading messages!
+              </div>
+            </div>
+          ) : (
+            <div className="p-6 h-[500px] overflow-y-auto custom-scrollbar">
+              <div className="space-y-4">
+                {data.map((m) => (
+                  <div
+                    className={`flex gap-3 ${
+                      m.userId === currentUser._id
+                        ? "justify-end"
+                        : "justify-start"
+                    }`}
+                    key={m._id}
+                  >
+                    {m.userId !== currentUser._id && (
+                      <img
+                        src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                        alt="User"
+                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                      />
+                    )}
+                    <div
+                      className={`max-w-xs sm:max-w-md md:max-w-lg rounded-2xl px-4 py-3 ${
+                        m.userId === currentUser._id
+                          ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-br-none"
+                          : "bg-gray-700 text-gray-300 rounded-bl-none"
+                      }`}
+                    >
+                      <p className="text-sm">{m.desc}</p>
+                      <p
+                        className={`text-xs mt-1 ${
+                          m.userId === currentUser._id
+                            ? "text-purple-200"
+                            : "text-gray-500"
+                        }`}
+                      >
+                        {new Date(m.createdAt).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Message input */}
+          <div className="border-t border-gray-700 p-4 bg-gray-800">
+            <form onSubmit={handleSubmit} className="flex gap-3">
+              <textarea
+                type="text"
+                placeholder="Type your message..."
+                className="flex-1 bg-gray-700 text-gray-300 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                rows="2"
+              />
+              <button
+                type="submit"
+                className="self-end bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-all shadow hover:shadow-lg disabled:opacity-50"
+                disabled={mutation.isLoading}
+              >
+                {mutation.isLoading ? (
+                  <svg
+                    className="animate-spin h-5 w-5 mx-2 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                ) : (
+                  "Send"
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
+
+      {/* Custom scrollbar styling */}
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(165, 180, 252, 0.3);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(165, 180, 252, 0.5);
+        }
+      `}</style>
     </div>
   );
 };
