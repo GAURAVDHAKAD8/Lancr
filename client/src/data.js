@@ -9,7 +9,7 @@ export const cards = [
     id: 2,
     title: "Logo Design",
     desc: "Build yor brand",
-    img: "https://downloadscdn5.freepik.com/download_vector/jpg/0/23/2/2040/2040331_275625-P5XWGL-98.jpg?token=exp=1754473446~hmac=ca9eed9d695a43e4ec342e08b6369d84&filename=2040331_275625-P5XWGL-98.jpg",
+    img: "https://downloadscdn5.freepik.com/download_vector/jpg/0/23/1/1988/1988192_255809-P4LN5X-640.jpg?token=exp=1754500376~hmac=20a05ebb3122be272084bf9aa1dfe693&filename=1988192_255809-P4LN5X-640.jpg",
   },
   {
     id: 3,
@@ -59,7 +59,7 @@ export const projects = [
   },
   {
     id: 2,
-    img: "https://downloadscdn5.freepik.com/download_vector/jpg/0/23/2/2040/2040331_275625-P5XWGL-98.jpg?token=exp=1754473446~hmac=ca9eed9d695a43e4ec342e08b6369d84&filename=2040331_275625-P5XWGL-98.jpg",
+    img: "https://downloadscdn5.freepik.com/download_vector/jpg/0/23/1/1988/1988192_255809-P4LN5X-640.jpg?token=exp=1754500376~hmac=20a05ebb3122be272084bf9aa1dfe693&filename=1988192_255809-P4LN5X-640.jpg",
     pp: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1600",
     cat: "Logo Design",
     username: "Morton Green",
