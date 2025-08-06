@@ -1,5 +1,5 @@
 import React from "react";
-import { Slider } from "infinite-react-carousel/lib";
+import Slider from "react-slick";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";

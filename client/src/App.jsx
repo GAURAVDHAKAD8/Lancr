@@ -18,6 +18,8 @@ import {
 } from "@tanstack/react-query";
 import Pay from "./pages/pay/Pay.jsx";
 import Success from "./pages/success/Success.jsx";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   const queryClient = new QueryClient();
