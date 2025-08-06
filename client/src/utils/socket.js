@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-export const socket = io("https://lancr-7cjc.onrender.com/api", {
+export const socket = io("https://lancr-7cjc.onrender.com/", {
   withCredentials: true,
   autoConnect: false,
   transports: ["websocket"],
