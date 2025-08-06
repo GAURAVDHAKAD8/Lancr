@@ -17,7 +17,7 @@ export const createMessage = async (req, res, next) => {
 
     try {
       const updatedConversation = await Conversation.findOneAndUpdate(
-        { id: req.body.conversationId }, // ✅ correct
+        { id: req.body.conversationId },
         {
           $set: {
             readBySeller: req.isSeller,
@@ -27,19 +27,28 @@ export const createMessage = async (req, res, next) => {
         },
         { new: true }
       );
+
+      // Emit the new message to all clients in this conversation
+      req.io.to(req.body.conversationId).emit("receiveMessage", {
+        _id: savedMessage._id,
+        conversationId: savedMessage.conversationId,
+        userId: savedMessage.userId,
+        desc: savedMessage.desc,
+        createdAt: savedMessage.createdAt,
+        // Add any other fields your frontend expects
+      });
      
     } catch (updateErr) {
       console.error("❌ Error updating conversation:", updateErr);
-      return next(updateErr); // return early
+      return next(updateErr);
     }
 
     res.status(201).send(savedMessage);
   } catch (err) {
-    console.error("❌ Message creation error:", err); // Add this
+    console.error("❌ Message creation error:", err);
     next(err);
   }
 };
-
 
 export const getMessages = async (req, res, next) => {
   try {
