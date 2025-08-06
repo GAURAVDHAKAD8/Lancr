@@ -26,24 +26,27 @@ mongoose.set("strictQuery", true);
 const Connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
-    console.log("Connected to MongoDB!");
+    console.log("✅ Connected to MongoDB!");
   } catch (error) {
     console.log(error);
   }
 };
 
-// CORS configuration
+// ✅ CORS for Express (REST API)
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173", // local dev
+      "https://lancr.vercel.app", // deployed frontend
+    ],
     credentials: true,
   })
 );
 
-// Socket.io setup
+// ✅ CORS for Socket.IO
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://lancr.vercel.app"],
     credentials: true,
   },
 });
@@ -54,23 +57,21 @@ app.use((req, res, next) => {
   next();
 });
 
-// Socket.io connection handler
+// Socket.io connection
 io.on("connection", (socket) => {
   console.log("✅ New client connected:", socket.id);
 
-  // Join conversation room
   socket.on("joinConversation", (conversationId) => {
     socket.join(conversationId);
     console.log(`📌 User joined conversation: ${conversationId}`);
   });
 
-  // Handle disconnection
   socket.on("disconnect", () => {
     console.log("❌ Client disconnected:", socket.id);
   });
 });
 
-// Your existing routes
+// Routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
@@ -86,8 +87,8 @@ app.use((err, req, res, next) => {
   return res.status(errorStatus).send(errorMessage);
 });
 
-// Start the server
+// Start server
 httpServer.listen(8800, () => {
   Connect();
-  console.log("Server is running on port 8800");
+  console.log("🚀 Server is running on port 8800");
 });
