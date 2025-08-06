@@ -250,7 +250,7 @@ function Navbar() {
       {/* Category Links */}
       {(active || pathname !== "/") && (
         <div className="bg-gray-800 border-t border-gray-700">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[12000px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex overflow-x-auto py-3 space-x-6 hide-scrollbar">
               {[
                 "Graphics & Design",
@@ -266,7 +266,7 @@ function Navbar() {
                 <Link
                   key={category}
                   to="/"
-                  className="flex-shrink-0 text-[14px] font-medium text-gray-400 hover:text-purple-400 transition-colors duration-200"
+                  className="flex-shrink-0 text-[12px] font-medium text-gray-400 hover:text-purple-400 transition-colors duration-200"
                 >
                   {category}
                 </Link>
