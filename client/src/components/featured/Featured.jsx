@@ -14,10 +14,10 @@ function Featured() {
       <div className="max-w-[1450px] mx-auto px-6 py-[190px]">
         <div className="flex flex-col md:flex-row items-center gap-16">
           <div className="flex-1 space-y-8">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              Find the perfect{" "}
-              <span className="font-light italic">freelance</span> services for
-              your business
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+              Discover Top
+              <span className="font-light italic"> freelance</span> Services for
+              Your Business Needs
             </h1>
 
             <div className="flex bg-white rounded-lg overflow-hidden shadow-lg">
@@ -52,16 +52,20 @@ function Featured() {
 
             <div className="flex flex-wrap items-center gap-3">
               <span className="text-gray-300">Popular:</span>
-              {["Web Design", "WordPress", "Logo Design", "AI Services"].map(
-                (tag) => (
-                  <button
-                    key={tag}
-                    className="text-white border border-gray-300 px-4 py-1 rounded-full bg-transparent text-sm hover:bg-white/10 transition-colors duration-200"
-                  >
-                    {tag}
-                  </button>
-                )
-              )}
+              {[
+                "Web Design",
+                "Graphic Design",
+                "Video Editing",
+                "AI Services",
+                
+              ].map((tag) => (
+                <button
+                  key={tag}
+                  className="text-white border border-gray-300 px-4 py-1 rounded-full bg-transparent text-sm hover:bg-white/10 transition-colors duration-200"
+                >
+                  {tag}
+                </button>
+              ))}
             </div>
           </div>
 

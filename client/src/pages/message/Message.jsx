@@ -1,38 +1,68 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
+import { socket } from "../../utils/socket";
 
 const Message = () => {
   const { id } = useParams();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
   const queryClient = useQueryClient();
+  const messagesEndRef = useRef(null);
 
+  // Fetch messages
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages", id],
     queryFn: () => newRequest.get(`/messages/${id}`).then((res) => res.data),
-    refetchInterval: 5000,
   });
 
-  const mutation = useMutation({
-    mutationFn: (message) => {
-      return newRequest.post(`/messages`, message);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["messages"]);
-    },
-  });
+useEffect(() => {
+  socket.connect();
+  socket.emit("joinConversation", id);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    mutation.mutate({
-      conversationId: id,
-      desc: e.target[0].value,
+  // Handle receiving new messages
+  const handleNewMessage = (newMessage) => {
+    queryClient.setQueryData(["messages", id], (oldData) => {
+      return [...(oldData || []), newMessage];
     });
-    e.target[0].value = "";
   };
 
+  socket.on("receiveMessage", handleNewMessage);
+
+  return () => {
+    socket.off("receiveMessage", handleNewMessage);
+    socket.disconnect();
+  };
+}, [id, queryClient]);
+
+// Modify your existing mutation to emit socket event
+const mutation = useMutation({
+  mutationFn: (message) => newRequest.post(`/messages`, message),
+  onSuccess: (savedMessage) => {
+    // Add temporary createdAt for immediate display
+    const messageWithTimestamp = {
+      ...savedMessage,
+      createdAt: new Date().toISOString(), // Add current timestamp
+    };
+
+    queryClient.setQueryData(["messages", id], (oldData) => {
+      return [...(oldData || []), messageWithTimestamp];
+    });
+  },
+});
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const message = e.target.elements.message.value; // Directly access the textarea value
+  
+  if (message && message.trim()) { // Check for both null/undefined and empty string
+    mutation.mutate({
+      conversationId: id,
+      desc: message.trim(), // Trim the message before sending
+    });
+    e.target.reset();
+  }
+};
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-[170px] px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -98,10 +128,12 @@ const Message = () => {
                             : "text-gray-500"
                         }`}
                       >
-                        {new Date(m.createdAt).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
+                        {m.createdAt
+                          ? new Date(m.createdAt).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })
+                          : "Just now"}
                       </p>
                     </div>
                   </div>
@@ -114,6 +146,7 @@ const Message = () => {
           <div className="border-t border-gray-700 p-4 bg-gray-800">
             <form onSubmit={handleSubmit} className="flex gap-3">
               <textarea
+                name="message" // Add this name attribute
                 type="text"
                 placeholder="Type your message..."
                 className="flex-1 bg-gray-700 text-gray-300 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"

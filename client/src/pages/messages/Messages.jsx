@@ -1,34 +1,36 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import React,{useEffect} from "react";
 import { Link } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import moment from "moment";
+import { socket } from "../../utils/socket";
 
 const Messages = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    socket.connect();
+    return () => socket.disconnect();
+  }, []);
+
+  // Listen for new messages to refresh conversations
+  useEffect(() => {
+    const handleNewMessage = () => {
+      queryClient.invalidateQueries(["conversations"]);
+    };
+
+    socket.on("newMessageNotification", handleNewMessage);
+    return () => socket.off("newMessageNotification", handleNewMessage);
+  }, [queryClient]);
+
+  // Fetch conversations
   const { isLoading, error, data } = useQuery({
     queryKey: ["conversations"],
-    queryFn: () =>
-      newRequest.get(`/conversations`).then((res) => {
-        return res.data;
-      }),
+    queryFn: () => newRequest.get("/conversations").then((res) => res.data),
   });
 
-  const mutation = useMutation({
-    mutationFn: (id) => {
-      return newRequest.put(`/conversations/${id}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["conversations"]);
-    },
-  });
-
-  const handleRead = (id) => {
-    mutation.mutate(id);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-[180px] px-4 sm:px-6 lg:px-8">

@@ -38,7 +38,7 @@ function Gig() {
       ) : error ? (
         <div className="text-red-400">something went wrong</div>
       ) : (
-        <div className="w-[1400px] py-[220px] flex gap-[50px]">
+        <div className="w-[1200px] py-[220px] flex gap-[50px]">
           <div className="flex-[2] flex flex-col gap-[20px]">
             <span className="font-[300] uppercase text-[13px] text-gray-400">
               Lancr {">"} Graphics & Design {">"}

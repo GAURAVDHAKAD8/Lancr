@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Pay.scss";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import newRequest from "../../utils/newRequest.js";
