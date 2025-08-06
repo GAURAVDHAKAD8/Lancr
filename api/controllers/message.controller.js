@@ -35,7 +35,7 @@ export const createMessage = async (req, res, next) => {
         userId: savedMessage.userId,
         desc: savedMessage.desc,
         createdAt: savedMessage.createdAt,
-        // Add any other fields your frontend expects
+        
       });
      
     } catch (updateErr) {

@@ -2,12 +2,12 @@ import createError from "../utils/createError.js";
 import Conversation from "../models/conversation.model.js";
 
 export const createConversation = async (req, res, next) => {
-  // Prevent self-conversations
+  
   if (req.userId === req.body.to) {
     return next(createError(400, "You cannot message yourself"));
   }
 
-  // Check if conversation already exists
+ 
   const existingConversation = await Conversation.findOne({
     $or: [{ id: req.userId + req.body.to }, { id: req.body.to + req.userId }],
   });
